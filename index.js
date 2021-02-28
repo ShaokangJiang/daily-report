@@ -128,7 +128,7 @@ function getTime() {
     return str;
 }
 
-async function getSchoolData() { //finished testing
+async function getSchoolData() { //finished testing.// TODO: Write to local content and push in the future
 
     let toRe = {};
     let Students = 45540;
@@ -177,10 +177,42 @@ async function getSchoolData() { //finished testing
     return toRe;
 }
 
+async function getCDCVaccineData(){
+    let data = await (await fetch("https://covid.cdc.gov/covid-data-tracker/COVIDData/getAjaxData?id=vaccination_data")).json();
+    let toRe = [];
+
+    for(let i of data.vaccination_data){
+        if(i.Location.localeCompare("WI") == 0 || i.Location.localeCompare("US") == 0 || i.Location.localeCompare("CA") == 0 || i.Location.localeCompare("WA") == 0 ){
+            toRe.push(i);
+        }
+    }
+
+    return toRe;
+
+}
+
+async function getDaneVaccineData(){
+    
+}
+
+async function getDaneCaseData(){
+    
+}
+
+async function getCDCExpectationData(){
+    //put it to weekly update instead of this daily update
+    //Use fetch from https://covid.cdc.gov/covid-data-tracker/COVIDData/getAjaxData?id=forecasting_region_US_data
+}
+
+async function getRData(){
+    
+}
+
 async function main() {
     //await loadUID();
     //let schoolData = await getSchoolData();
-    
+    let CDCvaccine = await getCDCVaccineData();
+    console.log(CDCvaccine);
     //await sendErrorMessage(message);
     //getTime();
 }
