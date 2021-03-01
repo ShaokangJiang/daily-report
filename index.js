@@ -543,11 +543,9 @@ async function main() {
     try {
         //await loadUID();
         await loadKVData();
-        let toSend = [];
-
         core.info("Start to get infection");
         let hrStart = process.hrtime();
-        await sendMessage("疫情简报：\n" + getTime() + "➡️感染:" + await getCasesData());
+        await sendMessage("疫情简报：\n" + getTime() + "➡️感染：" + await getCasesData());
         let hrEnd = process.hrtime(hrStart);
         core.info("Infection got in " + hrEnd[0] + "s");
 
@@ -565,7 +563,7 @@ async function main() {
 
         core.info("Start to get mix data");
         hrStart = process.hrtime();
-        await sendMessage("➡️综合:" + await getRData() + await getConclusion());
+        await sendMessage("➡️综合：" + await getRData() + await getConclusion());
         hrEnd = process.hrtime(hrStart)
         core.info("mix data got in " + hrEnd[0] + "s");
     } catch (e) {
