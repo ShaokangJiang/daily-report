@@ -34,5 +34,4 @@ jobs:
           CLOUDFLARE_ID: ${{ secrets.CLOUDFLARE_ID }}
           COVID_ACT_KEY: ${{ secrets.COVID_ACT_KEY }}
           KV_ID: ${{ secrets.KV_ID }}
-          UID: ${{ secrets.UID }}
           UID_ERR: ${{ secrets.UID_ERR }}
