@@ -731,7 +731,7 @@ async function getRData() {
 async function getConclusion() {
     let str = "综合免疫率:";
     str += "国家综合免疫率:" + (US_infection_case * 4.6 + US_infection_vaccine * 0.9).toFixed(2) + "%";
-    str += "戴恩县综合免疫率:" + (Dane_infection_case * 4.6 + Dane_infection_vaccine * 0.9).toFixed(2) + "%\n";
+    str += "戴恩县综合免疫率:" + (Dane_infection_case * 4.6 + Dane_infection_vaccine * 0.9).toFixed(2) + "%";
     return str;
 }
 
