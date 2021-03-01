@@ -21,238 +21,7 @@ var US_infection_vaccine;
 var Dane_infection_vaccine;
 
 var toAppend = {};
-var history = {
-    CDC_Cases:
-        [{
-            abbr: 'CA',
-            tot_cases: 3470877,
-            tot_cases_last_24_hours: 0,
-            conf_cases: 0,
-            prob_cases: 0,
-            new_cases07: 35691,
-            new_deaths07: 2996,
-            Seven_day_avg_new_cases_per_100k: 12.9,
-            Seven_day_avg_new_deaths_per_100k: 1.1,
-            tot_death: 51821,
-            tot_death_last_24_hours: 0,
-            conf_death: null,
-            prob_death: null,
-            death_100k: 131,
-            incidence: 8784,
-            id: 6,
-            fips: '06',
-            name: 'California'
-        },
-        {
-            abbr: 'WA',
-            tot_cases: 339773,
-            tot_cases_last_24_hours: 0,
-            conf_cases: 0,
-            prob_cases: 0,
-            new_cases07: 5979,
-            new_deaths07: 134,
-            Seven_day_avg_new_cases_per_100k: 11.2,
-            Seven_day_avg_new_deaths_per_100k: 0.3,
-            tot_death: 4956,
-            tot_death_last_24_hours: 0,
-            conf_death: null,
-            prob_death: null,
-            death_100k: 65,
-            incidence: 4462,
-            id: 53,
-            fips: '53',
-            name: 'Washington'
-        },
-        {
-            abbr: 'WI',
-            tot_cases: 616886,
-            tot_cases_last_24_hours: 0,
-            conf_cases: 563496,
-            prob_cases: 53390,
-            new_cases07: 5097,
-            new_deaths07: 143,
-            Seven_day_avg_new_cases_per_100k: 12.5,
-            Seven_day_avg_new_deaths_per_100k: 0.4,
-            tot_death: 7014,
-            tot_death_last_24_hours: 0,
-            conf_death: 6412,
-            prob_death: 602,
-            death_100k: 120,
-            incidence: 10595,
-            id: 55,
-            fips: '55',
-            name: 'Wisconsin'
-        },
-        {
-            abbr: 'USA',
-            tot_cases: 28355420,
-            tot_cases_last_24_hours: 69876,
-            conf_cases: 13029324,
-            prob_cases: 1861503,
-            new_cases07: 470232,
-            new_deaths07: 14542,
-            Seven_day_avg_new_cases_per_100k: 20.2,
-            Seven_day_avg_new_deaths_per_100k: 0.6,
-            tot_death: 510777,
-            tot_death_last_24_hours: 1828,
-            conf_death: 253499,
-            prob_death: 32776,
-            death_100k: 153,
-            incidence: 8541,
-            id: 0,
-            fips: '00',
-            name: 'United States of America'
-        }],
-    Dane_Case: { POSITIVE: 40517, POP: 529843 },
-    Dane1101_Case: { POSITIVE: 753, POP: 5126 },
-    School_Data:
-    {
-        student_culmulative: 6372,
-        student_culmulative_percent: '13.99%',
-        employee_culmulative: 750,
-        employee_culmulative_percent: '3.90%',
-        total_culmulative: 7122,
-        date: 'Feb 27',
-        Student_today: 19,
-        Student_totalTests: 4647,
-        Student_test_percent: '0.41%',
-        Employee_today: 0,
-        Employee_totalTests: 436,
-        Employee_test_percent: '0.00%',
-        total_Tests: 5083,
-        total_Percent: '0.37%'
-    },
-    CDC_Vaccine:
-        [{
-            Date: '2021-02-28',
-            Location: 'CA',
-            ShortName: 'CAA',
-            LongName: 'California',
-            Census2019: 39512223,
-            Doses_Distributed: 11587650,
-            Doses_Administered: 8821044,
-            Dist_Per_100K: 29327,
-            Admin_Per_100K: 22325,
-            Administered_Dose1: 6151911,
-            Administered_Dose1_Per_100K: 15570,
-            Administered_Dose2: 2613260,
-            Administered_Dose2_Per_100K: 6614,
-            Administered_Dose1_Pop_Pct: 15.5,
-            Administered_Dose2_Pop_Pct: 6.6,
-            date_type: 'Report',
-            Recip_Administered: 8806969,
-            Administered_Dose1_Recip: 6141765,
-            Administered_Dose2_Recip: 2609341,
-            Administered_Dose1_Recip_18Plus: 6138201,
-            Administered_Dose2_Recip_18Plus: 2608453,
-            Administered_Dose1_Recip_18PlusPop_Pct: 20,
-            Administered_Dose2_Recip_18PlusPop_Pct: 8.5,
-            Census2019_18PlusPop: 30617582,
-            Distributed_Per_100k_18Plus: 37846,
-            Administered_18Plus: 8816524,
-            Admin_Per_100k_18Plus: 28796
-        },
-        {
-            Date: '2021-02-28',
-            Location: 'WA',
-            ShortName: 'WAA',
-            LongName: 'Washington',
-            Census2019: 7614893,
-            Doses_Distributed: 2245010,
-            Doses_Administered: 1729208,
-            Dist_Per_100K: 29482,
-            Admin_Per_100K: 22708,
-            Administered_Dose1: 1130786,
-            Administered_Dose1_Per_100K: 14850,
-            Administered_Dose2: 580143,
-            Administered_Dose2_Per_100K: 7619,
-            Administered_Dose1_Pop_Pct: 14.9,
-            Administered_Dose2_Pop_Pct: 7.6,
-            date_type: 'Report',
-            Recip_Administered: 1735573,
-            Administered_Dose1_Recip: 1134837,
-            Administered_Dose2_Recip: 582467,
-            Administered_Dose1_Recip_18Plus: 1134181,
-            Administered_Dose2_Recip_18Plus: 582190,
-            Administered_Dose1_Recip_18PlusPop_Pct: 19.1,
-            Administered_Dose2_Recip_18PlusPop_Pct: 9.8,
-            Census2019_18PlusPop: 5951832,
-            Distributed_Per_100k_18Plus: 37720,
-            Administered_18Plus: 1728272,
-            Admin_Per_100k_18Plus: 29038
-        },
-        {
-            Date: '2021-02-28',
-            Location: 'WI',
-            ShortName: 'WIA',
-            LongName: 'Wisconsin',
-            Census2019: 5822434,
-            Doses_Distributed: 1588665,
-            Doses_Administered: 1470570,
-            Dist_Per_100K: 27285,
-            Admin_Per_100K: 25257,
-            Administered_Dose1: 956474,
-            Administered_Dose1_Per_100K: 16427,
-            Administered_Dose2: 498381,
-            Administered_Dose2_Per_100K: 8560,
-            Administered_Dose1_Pop_Pct: 16.5,
-            Administered_Dose2_Pop_Pct: 8.6,
-            date_type: 'Report',
-            Recip_Administered: 1474559,
-            Administered_Dose1_Recip: 958333,
-            Administered_Dose2_Recip: 500342,
-            Administered_Dose1_Recip_18Plus: 957911,
-            Administered_Dose2_Recip_18Plus: 500147,
-            Administered_Dose1_Recip_18PlusPop_Pct: 21,
-            Administered_Dose2_Recip_18PlusPop_Pct: 11,
-            Census2019_18PlusPop: 4555837,
-            Distributed_Per_100k_18Plus: 34871,
-            Administered_18Plus: 1469958,
-            Admin_Per_100k_18Plus: 32265
-        },
-        {
-            Date: '2021-02-28',
-            Location: 'US',
-            ShortName: 'USA',
-            LongName: 'United States',
-            Census2019: 331996199,
-            Doses_Distributed: 96402490,
-            Doses_Administered: 75236003,
-            Administered_Dose1: 49772180,
-            Administered_Dose2: 24779920,
-            Administered_Moderna: 36694414,
-            Administered_Pfizer: 38426567,
-            Administered_Unk_Manuf: 115022,
-            Administered_Dose1_Pop_Pct: 15,
-            Administered_Dose2_Pop_Pct: 7.5,
-            date_type: 'Report',
-            Recip_Administered: 75236003,
-            Administered_Dose1_Recip: 49772180,
-            Administered_Dose2_Recip: 24779920,
-            Administered_Dose1_Recip_18Plus: 49728890,
-            Administered_Dose2_Recip_18Plus: 24764251,
-            Administered_Dose1_Recip_18PlusPop_Pct: 19.5,
-            Administered_Dose2_Recip_18PlusPop_Pct: 9.7,
-            Census2019_18PlusPop: 255200373,
-            Distributed_Per_100k_18Plus: 37775,
-            Administered_18Plus: 75176640,
-            Admin_Per_100k_18Plus: 29458
-        }],
-    Dane_Vaccine:
-    {
-        vaccine1: 98477,
-        vaccine1_percent: 18.0,
-        vaccine2: 61937,
-        vaccine2_percent: 11.3
-    },
-    Sta:
-    {
-        cumulative_R: 0.9029177581059421,
-        cumulative_level: 2.0377358490566038,
-        Dane_R: 1.00210297646,
-        Risk_level: 2
-    }
-};
+var history = {};
 
 if (APP_TOKEN.localeCompare("") == 0 || CLOUDFLARE_EMAIL.localeCompare("") == 0 || CLOUDFLARE_API.localeCompare("") == 0 || CLOUDFLARE_ID.localeCompare("") == 0 || KV_ID.localeCompare("") == 0 || COVID_ACT_KEY.localeCompare("") == 0) {
     core.setFailed(`Action failed because of empty required secrets.`);
@@ -374,22 +143,22 @@ async function sendMessage(message) {
                 "method": "POST"
             });
         }
+    } else {
+        response = await fetch("http://wxpusher.zjiecode.com/api/send/message", {
+            "headers": {
+                "accept": "*/*",
+                "content-type": "application/json"
+            },
+            "body": JSON.stringify({
+                "appToken": APP_TOKEN,
+                "content": message,
+                "contentType": 1,//内容类型 1表示文字  2表示html(只发送body标签内部的数据即可，不包括body标签) 3表示markdown 
+                "uids": uids,
+                "url": undefined //原文链接，可选参数
+            }),
+            "method": "POST"
+        });
     }
-    response = await fetch("http://wxpusher.zjiecode.com/api/send/message", {
-        "headers": {
-            "accept": "*/*",
-            "content-type": "application/json"
-        },
-        "body": JSON.stringify({
-            "appToken": APP_TOKEN,
-            "content": message,
-            "contentType": 1,//内容类型 1表示文字  2表示html(只发送body标签内部的数据即可，不包括body标签) 3表示markdown 
-            "uids": uids,
-            "url": undefined //原文链接，可选参数
-        }),
-        "method": "POST"
-    });
-
 
     return await response.json();
 }
@@ -490,7 +259,7 @@ async function getSchoolData() { //finished testing.// TODO: Write to local cont
         core.error("Error happen in getting school data: " + e);
         return null;
     }
-    return "截止" + toRe["date"] + "学校总共有" + toRe["total_culmulative"] + "人感染;学生总共有" + toRe["student_culmulative"] + "人感染(占总人数" + toRe["student_culmulative_percent"] + ");教职员工总共有" + toRe["employee_culmulative"] + "人感染(占总人数" + toRe["employee_culmulative_percent"] + ")。在昨日检测中，总共有" + (toRe["Student_today"] + toRe["Employee_today"]) + "人检测阳性(占总测试人数" + toRe["total_Percent"] + "),学生有" + toRe["Student_today"] + "人阳性(占总学生测试人数" + toRe["Student_test_percent"] + ");教职员有" + toRe["Employee_today"] + "人阳性(占总教职员测试人数" + toRe["Employee_test_percent"] + ")\n";
+    return "截止" + toRe["date"] + "学校总共有" + toRe["total_culmulative"] + "人感染；其中学生总共有" + toRe["student_culmulative"] + "人感染（占总人数" + toRe["student_culmulative_percent"] + "）；教职员工总共有" + toRe["employee_culmulative"] + "人感染（占总人数" + toRe["employee_culmulative_percent"] + "）。在昨日检测中，总共有" + (toRe["Student_today"] + toRe["Employee_today"]) + "人检测阳性（占总测试人数" + toRe["total_Percent"] + "），学生有" + toRe["Student_today"] + "人阳性（占总学生测试人数" + toRe["Student_test_percent"] + "）；教职员有" + toRe["Employee_today"] + "人阳性（占总教职员测试人数" + toRe["Employee_test_percent"] + "）\n";
 }
 
 async function getVaccineData() {
@@ -507,7 +276,7 @@ async function getVaccineData() {
 
     toAppend["CDC_Vaccine"] = toRe;
 
-    let str = "➡️疫苗:";
+    let str = "➡️疫苗：";
 
     let WI_his, CA_his, WA_his, US_his;
     for (let i of history.CDC_Vaccine) {
@@ -528,7 +297,7 @@ async function getVaccineData() {
     for (let i of toRe) {
         if (i.Location.localeCompare("US") == 0) {
             US_infection_vaccine = i.Administered_Dose1_Pop_Pct;
-            str += "美国总共施打" + bigNumberTransform(i.Recip_Administered) + "针,有" + bigNumberTransform(i.Administered_Dose1_Recip) + "人打完了第一针(占总人数" + i.Administered_Dose1_Pop_Pct + "%),新增" + bigNumberTransform(i.Administered_Dose1_Recip - US_his.Administered_Dose1_Recip) + "人,其中18岁以上有" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus) + "人打完了第一针(占总18+人数" + bigNumberTransform(i.Administered_Dose1_Recip_18PlusPop_Pct) + "%),新增" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus - US_his.Administered_Dose1_Recip_18Plus) + "人.有" + bigNumberTransform(i.Administered_Dose2_Recip) + "人全部打完(占总人数" + i.Administered_Dose2_Pop_Pct + "%),新增" + bigNumberTransform(i.Administered_Dose2_Recip - US_his.Administered_Dose2_Recip) + "人.其中18岁以上有" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus) + "人打完了第一针(占总18+人数" + i.Administered_Dose2_Recip_18PlusPop_Pct + "%),新增" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus - US_his.Administered_Dose2_Recip_18Plus) + "人." + bigNumberTransform(i.Administered_Dose1_Recip - i.Administered_Dose2_Recip) + "人只打了第一针.总共分发了" + bigNumberTransform(i.Doses_Distributed) + "针."
+            str += "美国总共施打" + bigNumberTransform(i.Recip_Administered) + "针，" + bigNumberTransform(i.Administered_Dose1_Recip) + "人打完了第一针（占总数" + i.Administered_Dose1_Pop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose1_Recip - US_his.Administered_Dose1_Recip) + "人，其中18岁以上有" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus) + "人打完了第一针（占总18+人数" + bigNumberTransform(i.Administered_Dose1_Recip_18PlusPop_Pct) + "%），新增" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus - US_his.Administered_Dose1_Recip_18Plus) + "人。有" + bigNumberTransform(i.Administered_Dose2_Recip) + "人全部打完（占总数" + i.Administered_Dose2_Pop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose2_Recip - US_his.Administered_Dose2_Recip) + "人，其中18岁以上有" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus) + "人打完了第一针（占总18+人数" + i.Administered_Dose2_Recip_18PlusPop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus - US_his.Administered_Dose2_Recip_18Plus) + "人。" + bigNumberTransform(i.Administered_Dose1_Recip - i.Administered_Dose2_Recip) + "人只打了第一针。总分发" + bigNumberTransform(i.Doses_Distributed);
         }
     }
     let strRe = [];
@@ -537,17 +306,17 @@ async function getVaccineData() {
     //console.log(toRe);
     for (let i of toRe) {
         if (i.Location.localeCompare("WI") == 0) {
-            str += "威斯康星州总共施打" + bigNumberTransform(i.Recip_Administered) + "针.新增" + bigNumberTransform(i.Recip_Administered - WI_his) + "针.";
+            str += "威斯康星州总共施打" + bigNumberTransform(i.Recip_Administered) + "针。新增" + bigNumberTransform(i.Recip_Administered - WI_his) + "针。";
         }
     }
     for (let i of toRe) {
         if (i.Location.localeCompare("WA") == 0) {
-            str += "华盛顿州总共施打" + bigNumberTransform(i.Recip_Administered) + "针.新增" + bigNumberTransform(i.Recip_Administered - WA_his) + "针.";
+            str += "华盛顿州总共施打" + bigNumberTransform(i.Recip_Administered) + "针。新增" + bigNumberTransform(i.Recip_Administered - WA_his) + "针。";
         }
     }
     for (let i of toRe) {
         if (i.Location.localeCompare("CA") == 0) {
-            str += "加州总共施打" + bigNumberTransform(i.Recip_Administered) + "针.新增" + bigNumberTransform(i.Recip_Administered - CA_his) + "针."
+            str += "加州总共施打" + bigNumberTransform(i.Recip_Administered) + "针。新增" + bigNumberTransform(i.Recip_Administered - CA_his) + "针。"
         }
     }
     str += await getDaneVaccineData();
@@ -615,7 +384,7 @@ async function getDaneVaccineData() {
 
         toAppend["Dane_Vaccine"] = toRe;
         Dane_infection_vaccine = toRe["vaccine1_percent"];
-        return "\n戴恩县总共有" + bigNumberTransform(toRe["vaccine1"]) + "人打完了第一针(占总人数" + toRe["vaccine1_percent"] + "%),新增" + bigNumberTransform(toRe["vaccine1"] - history.Dane_Vaccine.vaccine1) + "人." + bigNumberTransform(toRe["vaccine2"]) + "人全部打完(占总人数" + toRe["vaccine2_percent"] + "%),新增" + bigNumberTransform(toRe["vaccine2"] - history.Dane_Vaccine.vaccine2) + "人." + bigNumberTransform(toRe["vaccine1"] - toRe["vaccine2"]) + "人只打了第一针";
+        return "\n戴恩县总共有" + bigNumberTransform(toRe["vaccine1"]) + "人打完了第一针（占总人数" + toRe["vaccine1_percent"] + "%），新增" + bigNumberTransform(toRe["vaccine1"] - history.Dane_Vaccine.vaccine1) + "人。" + bigNumberTransform(toRe["vaccine2"]) + "人全部打完（占总人数" + toRe["vaccine2_percent"] + "%），新增" + bigNumberTransform(toRe["vaccine2"] - history.Dane_Vaccine.vaccine2) + "人。" + bigNumberTransform(toRe["vaccine1"] - toRe["vaccine2"]) + "人只打了第一针";
     } catch (e) {
         throw new Error("new error" + e);
     } finally {
@@ -631,7 +400,7 @@ async function getDane1101CaseData() {
         "POSITIVE": data.POSITIVE,
         "POP": data.POP
     };
-    return "第1101区阳性病例数" + data.POSITIVE + "(占总人口" + ((data.POSITIVE / data.POP) * 100).toFixed(2) + "%),较昨日新增" + (data.POSITIVE - history.Dane1101_Case.POSITIVE) + "例"
+    return "第1101区阳性病例数" + data.POSITIVE + "（占总人口" + ((data.POSITIVE / data.POP) * 100).toFixed(2) + "%），较昨日新增" + (data.POSITIVE - history.Dane1101_Case.POSITIVE) + "例"
 }
 
 async function getDaneCaseData() {
@@ -643,7 +412,7 @@ async function getDaneCaseData() {
         "POP": data.POP
     };
     Dane_infection_case = (data.POSITIVE / data.POP) * 100;
-    return "戴恩县阳性病例数" + bigNumberTransform(data.POSITIVE) + "(占总人口" + (Dane_infection_case).toFixed(2) + "%),较昨日新增" + data.POS_NEW + "人."
+    return "戴恩县阳性病例数" + bigNumberTransform(data.POSITIVE) + "（占总人口" + (Dane_infection_case).toFixed(2) + "%），较昨日新增" + data.POS_NEW + "人。"
 }
 
 
@@ -666,13 +435,13 @@ async function getCasesData() {
     for (let i of toRe) {
         if (i.abbr.localeCompare("USA") == 0) {
             US_infection_case = (i.tot_cases / pop2019) * 100;
-            str += "美国总感染人数" + bigNumberTransform(i.tot_cases) + "(占总人数" + (US_infection_case).toFixed(2) + "%).较昨日新增" + bigNumberTransform(i.tot_cases_last_24_hours) + "人.";
+            str += "美国总感染人数" + bigNumberTransform(i.tot_cases) + "（占总人数" + (US_infection_case).toFixed(2) + "%）。较昨日新增" + bigNumberTransform(i.tot_cases_last_24_hours) + "人。";
         }
 
     }
     for (let i of toRe) {
         if (i.abbr.localeCompare("WI") == 0) {
-            str += "威斯康星州总感染人数" + bigNumberTransform(i.tot_cases) + "(占总人数" + ((i.tot_cases / pop2019WI) * 100).toFixed(2) + "%)."
+            str += "威斯康星州总感染人数" + bigNumberTransform(i.tot_cases) + "（占总人数" + ((i.tot_cases / pop2019WI) * 100).toFixed(2) + "%）。"
         }
     }
 
@@ -724,19 +493,23 @@ async function getRData() {
     if (Math.abs(cumulative_R - Dane_R) < 0.01) R_result = "和简单平均持平"; else if (cumulative_R < Dane_R) R_result = "高于简单平均"; else R_result = "低于简单平均";
     if (Math.abs(cumulative_level - Risk_level) < 0.01) level_result = "和其他地方一样危险"; else if (cumulative_level < Risk_level) level_result = "比其他地方危险"; else level_result = "比其他地方安全";
 
-    return "戴恩县每一个阳性感染" + Dane_R.toFixed(3) + "人(" + R_result + "),第" + Risk_level + "级危险(" + level_result + ");全国简单平均R值:" + cumulative_R.toFixed(3) + ",简单平均危险级别:" + cumulative_level.toFixed(1) + "\n";
+    return "戴恩县每一个阳性感染" + Dane_R.toFixed(3) + "人（" + R_result + "），第" + Risk_level + "级危险（" + level_result + "）;全国简单平均R值：" + cumulative_R.toFixed(3) + "，简单平均危险级别：" + cumulative_level.toFixed(1) + "\n";
 
 }//
 
 async function getConclusion() {
-    let str = "综合免疫率:";
-    str += "国家综合免疫率:" + (US_infection_case * 4.6 + US_infection_vaccine * 0.9).toFixed(2) + "%";
-    str += "戴恩县综合免疫率:" + (Dane_infection_case * 4.6 + Dane_infection_vaccine * 0.9).toFixed(2) + "%";
+    let str = "综合免疫率：";
+    str += "国家综合免疫率：" + (US_infection_case * 4.6 + US_infection_vaccine * 0.9).toFixed(2) + "%，";
+    str += "戴恩县综合免疫率：" + (Dane_infection_case * 4.6 + Dane_infection_vaccine * 0.9).toFixed(2) + "%。";
     return str;
 }
 
 async function loadKVData() {
-    let response = await fetch("https://api.cloudflare.com/client/v4/accounts/" + CLOUDFLARE_ID + "/storage/kv/namespaces/" + KV_ID + "/values/data", {
+    let d = new Date();
+    d.setDate(d.getDate() - 1);
+    let dateStr = d.toLocaleDateString("en");
+    core.info("Date get in loadKV:" + dateStr);
+    let response = await fetch("https://api.cloudflare.com/client/v4/accounts/" + CLOUDFLARE_ID + "/storage/kv/namespaces/" + KV_ID + "/values/data_" + dateStr, {
         headers: {
             "X-Auth-Email": CLOUDFLARE_EMAIL,
             "X-Auth-Key": CLOUDFLARE_API
@@ -746,7 +519,10 @@ async function loadKVData() {
 }
 
 async function writeToKV(message) {
-    let response = await fetch("https://api.cloudflare.com/client/v4/accounts/" + CLOUDFLARE_ID + "/storage/kv/namespaces/" + KV_ID + "/values/data?", {
+    let d = new Date();
+    let dateStr = d.toLocaleDateString("en");
+    core.info("Date get in saveKV:" + dateStr);
+    let response = await fetch("https://api.cloudflare.com/client/v4/accounts/" + CLOUDFLARE_ID + "/storage/kv/namespaces/" + KV_ID + "/values/data_" + dateStr, {
         body: message,
         headers: {
             "Content-Type": "text/plain",
@@ -763,14 +539,16 @@ async function main() {
     //let schoolData = await getSchoolData();
 
     // core part start 
+    await loadKVData();
     let toSend = [];
     toSend.push(getTime() + "➡️感染:" + await getCasesData());
     toSend.push(await getSchoolData());
     toSend = toSend.concat(await getVaccineData());
     toSend.push("➡️综合:" + await getRData() + await getConclusion());
-    console.log(toSend);
-    console.log(await sendMessage(toSend))
-    console.log(toAppend);
+    // console.log(toSend);
+    await sendMessage(toSend)
+    // console.log(toAppend);
+    core.info(await writeToKV(JSON.stringify(toAppend)));
     // core part end
 
     // console.log(await getDaneVaccineData());
