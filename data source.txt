@@ -1,3 +1,0 @@
-https://data.dhsgis.wi.gov/datasets/covid-19-data-by-census-tract/data?orderBy=COUNTY&page=16
-
-https://covid.cdc.gov/covid-data-tracker/COVIDData/getAjaxData?id=vaccination_data
