@@ -541,7 +541,7 @@ async function main() {
 
     // core part start 
     try {
-        //await loadUID();
+        await loadUID();
         await loadKVData();
         core.info("Start to get infection");
         let hrStart = process.hrtime();
