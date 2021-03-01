@@ -142,6 +142,8 @@ async function sendMessage(message) {
                 }),
                 "method": "POST"
             });
+            await response.json();
+            await new Promise(r => setTimeout(r, 5000));
         }
     } else {
         response = await fetch("http://wxpusher.zjiecode.com/api/send/message", {
@@ -158,9 +160,9 @@ async function sendMessage(message) {
             }),
             "method": "POST"
         });
+        await response.json();
+        await new Promise(r => setTimeout(r, 5000));
     }
-
-    return await response.json();
 }
 
 //testing function
@@ -535,18 +537,44 @@ async function writeToKV(message) {
 }
 
 async function main() {
-    //await loadUID();
     //let schoolData = await getSchoolData();
 
     // core part start 
-    await loadKVData();
-    let toSend = [];
-    toSend.push(getTime() + "➡️感染:" + await getCasesData());
-    toSend.push(await getSchoolData());
-    toSend = toSend.concat(await getVaccineData());
-    toSend.push("➡️综合:" + await getRData() + await getConclusion());
+    try {
+        //await loadUID();
+        await loadKVData();
+        let toSend = [];
+
+        core.info("Start to get infection");
+        let hrStart = process.hrtime();
+        await sendMessage("疫情简报：\n" + getTime() + "➡️感染:" + await getCasesData());
+        let hrEnd = process.hrtime(hrStart);
+        core.info("Infection got in " + hrEnd[0] + "s");
+
+        core.info("Start to get school data");
+        hrStart = process.hrtime();
+        await sendMessage(await getSchoolData());
+        hrEnd = process.hrtime(hrStart)
+        core.info("School data got in " + hrEnd[0] + "s");
+
+        core.info("Start to get vaccine data");
+        hrStart = process.hrtime();
+        await sendMessage(await getVaccineData());
+        hrEnd = process.hrtime(hrStart)
+        core.info("vaccine data got in " + hrEnd[0] + "s");
+
+        core.info("Start to get mix data");
+        hrStart = process.hrtime();
+        await sendMessage("➡️综合:" + await getRData() + await getConclusion());
+        hrEnd = process.hrtime(hrStart)
+        core.info("mix data got in " + hrEnd[0] + "s");
+    } catch (e) {
+        await sendErrorMessage("Error happened " + e);
+        core.error("Error happened: " + e);
+        core.setFailed("Quit because " + e);
+    }
+
     // console.log(toSend);
-    await sendMessage(toSend)
     // console.log(toAppend);
     core.info(await writeToKV(JSON.stringify(toAppend)));
     // core part end
