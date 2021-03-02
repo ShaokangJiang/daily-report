@@ -301,7 +301,7 @@ async function getVaccineData() {
     for (let i of toRe) {
         if (i.Location.localeCompare("US") == 0) {
             US_infection_vaccine = i.Administered_Dose1_Pop_Pct;
-            str += "美国总共施打" + bigNumberTransform(i.Recip_Administered) + "针，" + bigNumberTransform(i.Administered_Dose1_Recip) + "人打完了第一针（占总数" + i.Administered_Dose1_Pop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose1_Recip - US_his.Administered_Dose1_Recip) + "人，其中18岁以上有" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus) + "人打完了第一针（占总18+人数" + bigNumberTransform(i.Administered_Dose1_Recip_18PlusPop_Pct) + "%），新增" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus - US_his.Administered_Dose1_Recip_18Plus) + "人。有" + bigNumberTransform(i.Administered_Dose2_Recip) + "人全部打完（占总数" + i.Administered_Dose2_Pop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose2_Recip - US_his.Administered_Dose2_Recip) + "人，其中18岁以上有" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus) + "人打完了第一针（占总18+人数" + i.Administered_Dose2_Recip_18PlusPop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus - US_his.Administered_Dose2_Recip_18Plus) + "人。" + bigNumberTransform(i.Administered_Dose1_Recip - i.Administered_Dose2_Recip) + "人只打了第一针。总分发" + bigNumberTransform(i.Doses_Distributed);
+            str += "美国总共施打" + bigNumberTransform(i.Recip_Administered) + "针，" + bigNumberTransform(i.Administered_Dose1_Recip) + "人打完了第一针（占总数" + i.Administered_Dose1_Pop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose1_Recip - US_his.Administered_Dose1_Recip) + "人，其中18岁以上有" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus) + "人打完了第一针（占总18+人数" + bigNumberTransform(i.Administered_Dose1_Recip_18PlusPop_Pct) + "%），新增" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus - US_his.Administered_Dose1_Recip_18Plus) + "人。有" + bigNumberTransform(i.Administered_Dose2_Recip) + "人全部打完（占总数" + i.Administered_Dose2_Pop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose2_Recip - US_his.Administered_Dose2_Recip) + "人，其中18岁以上有" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus) + "人全部打完（占总18+人数" + i.Administered_Dose2_Recip_18PlusPop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus - US_his.Administered_Dose2_Recip_18Plus) + "人。" + bigNumberTransform(i.Administered_Dose1_Recip - i.Administered_Dose2_Recip) + "人只打了第一针。总分发" + bigNumberTransform(i.Doses_Distributed);
         }
     }
     let strRe = [];
@@ -311,16 +311,16 @@ async function getVaccineData() {
     for (let i of toRe) {
         if (i.Location.localeCompare("WI") == 0) {
             WI_infection_vaccine = i.Administered_Dose1_Pop_Pct;
-            str += "威斯康星州总共施打" + bigNumberTransform(i.Recip_Administered) + "针，" + bigNumberTransform(i.Administered_Dose1_Recip) + "人打完了第一针（占总数" + i.Administered_Dose1_Pop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose1_Recip - WI_his.Administered_Dose1_Recip) + "人，其中18岁以上有" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus) + "人打完了第一针（占总18+人数" + bigNumberTransform(i.Administered_Dose1_Recip_18PlusPop_Pct) + "%），新增" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus - WI_his.Administered_Dose1_Recip_18Plus) + "人。有" + bigNumberTransform(i.Administered_Dose2_Recip) + "人全部打完（占总数" + i.Administered_Dose2_Pop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose2_Recip - WI_his.Administered_Dose2_Recip) + "人，" + "其中18岁以上有" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus) + "人";
+            str += "威斯康星州总共施打" + bigNumberTransform(i.Recip_Administered) + "针，" + bigNumberTransform(i.Administered_Dose1_Recip) + "人打完了第一针（占总数" + i.Administered_Dose1_Pop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose1_Recip - WI_his.Administered_Dose1_Recip) + "人，其中18岁以上有" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus) + "人打完了第一针（占总18+人数" + bigNumberTransform(i.Administered_Dose1_Recip_18PlusPop_Pct) + "%），新增" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus - WI_his.Administered_Dose1_Recip_18Plus) + "人。有" + bigNumberTransform(i.Administered_Dose2_Recip) + "人全部打完（占总数" + i.Administered_Dose2_Pop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose2_Recip - WI_his.Administered_Dose2_Recip) + "人，" + "其中18岁以上有" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus) + "人全部打完";
             strRe.push(str);
             str = "";
-            str += "打完了第一针（占总18+人数" + i.Administered_Dose2_Recip_18PlusPop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus - WI_his.Administered_Dose2_Recip_18Plus) + "人。" + bigNumberTransform(i.Administered_Dose1_Recip - i.Administered_Dose2_Recip) + "人只打了第一针。总分发" + bigNumberTransform(i.Doses_Distributed) + "。" + await getDaneVaccineData();
+            str += "（占总18+人数" + i.Administered_Dose2_Recip_18PlusPop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus - WI_his.Administered_Dose2_Recip_18Plus) + "人。" + bigNumberTransform(i.Administered_Dose1_Recip - i.Administered_Dose2_Recip) + "人只打了第一针。总分发" + bigNumberTransform(i.Doses_Distributed) + "。" + await getDaneVaccineData();
             break;
         }
     }
     for (let i of toRe) {
         if (i.Location.localeCompare("WA") == 0) {
-            str += "华盛顿州总共施打" + bigNumberTransform(i.Recip_Administered) + "针。新增" + bigNumberTransform(i.Recip_Administered - WA_his) + "针。";
+            str += "\n华盛顿州总共施打" + bigNumberTransform(i.Recip_Administered) + "针。新增" + bigNumberTransform(i.Recip_Administered - WA_his) + "针。";
             break;
         }
     }
