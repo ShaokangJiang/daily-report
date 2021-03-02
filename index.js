@@ -19,6 +19,8 @@ var US_infection_case;
 var Dane_infection_case;
 var US_infection_vaccine;
 var Dane_infection_vaccine;
+var WI_infection_vaccine;
+var WI_infection_case;
 
 var toAppend = {};
 var history = {};
@@ -286,7 +288,7 @@ async function getVaccineData() {
             US_his = i;
         }
         if (i.Location.localeCompare("WI") == 0) {
-            WI_his = i.Recip_Administered;
+            WI_his = i;
         }
         if (i.Location.localeCompare("CA") == 0) {
             CA_his = i.Recip_Administered;
@@ -308,7 +310,11 @@ async function getVaccineData() {
     //console.log(toRe);
     for (let i of toRe) {
         if (i.Location.localeCompare("WI") == 0) {
-            str += "威斯康星州总共施打" + bigNumberTransform(i.Recip_Administered) + "针。新增" + bigNumberTransform(i.Recip_Administered - WI_his) + "针。";
+            WI_infection_vaccine = i.Administered_Dose1_Pop_Pct;
+            str += "威斯康星州总共施打" + bigNumberTransform(i.Recip_Administered) + "针，" + bigNumberTransform(i.Administered_Dose1_Recip) + "人打完了第一针（占总数" + i.Administered_Dose1_Pop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose1_Recip - WI_his.Administered_Dose1_Recip) + "人，其中18岁以上有" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus) + "人打完了第一针（占总18+人数" + bigNumberTransform(i.Administered_Dose1_Recip_18PlusPop_Pct) + "%），新增" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus - WI_his.Administered_Dose1_Recip_18Plus) + "人。有" + bigNumberTransform(i.Administered_Dose2_Recip) + "人全部打完（占总数" + i.Administered_Dose2_Pop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose2_Recip - WI_his.Administered_Dose2_Recip) + "人，" + "其中18岁以上有" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus) + "人";
+            strRe.push(str);
+            str = "";
+            str += "打完了第一针（占总18+人数" + i.Administered_Dose2_Recip_18PlusPop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus - WI_his.Administered_Dose2_Recip_18Plus) + "人。" + bigNumberTransform(i.Administered_Dose1_Recip - i.Administered_Dose2_Recip) + "人只打了第一针。总分发" + bigNumberTransform(i.Doses_Distributed) + await getDaneVaccineData();
         }
     }
     for (let i of toRe) {
@@ -321,7 +327,6 @@ async function getVaccineData() {
             str += "加州总共施打" + bigNumberTransform(i.Recip_Administered) + "针。新增" + bigNumberTransform(i.Recip_Administered - CA_his) + "针。"
         }
     }
-    str += await getDaneVaccineData();
     strRe.push(str);
     return strRe;
 }
@@ -443,7 +448,8 @@ async function getCasesData() {
     }
     for (let i of toRe) {
         if (i.abbr.localeCompare("WI") == 0) {
-            str += "威斯康星州总感染人数" + bigNumberTransform(i.tot_cases) + "（占总人数" + ((i.tot_cases / pop2019WI) * 100).toFixed(2) + "%）。"
+            WI_infection_case = (i.tot_cases / pop2019WI) * 100;
+            str += "威斯康星州总感染人数" + bigNumberTransform(i.tot_cases) + "（占总人数" + (WI_infection_case).toFixed(2) + "%）。"
         }
     }
 
@@ -502,6 +508,7 @@ async function getRData() {
 async function getConclusion() {
     let str = "综合免疫率：";
     str += "国家综合免疫率：" + (US_infection_case * 4.6 + US_infection_vaccine * 0.9).toFixed(2) + "%，";
+    str += "威斯康星州综合免疫率：" + (WI_infection_case * 4.6 + WI_infection_vaccine * 0.9).toFixed(2) + "%。";
     str += "戴恩县综合免疫率：" + (Dane_infection_case * 4.6 + Dane_infection_vaccine * 0.9).toFixed(2) + "%。";
     return str;
 }
