@@ -314,17 +314,20 @@ async function getVaccineData() {
             str += "威斯康星州总共施打" + bigNumberTransform(i.Recip_Administered) + "针，" + bigNumberTransform(i.Administered_Dose1_Recip) + "人打完了第一针（占总数" + i.Administered_Dose1_Pop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose1_Recip - WI_his.Administered_Dose1_Recip) + "人，其中18岁以上有" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus) + "人打完了第一针（占总18+人数" + bigNumberTransform(i.Administered_Dose1_Recip_18PlusPop_Pct) + "%），新增" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus - WI_his.Administered_Dose1_Recip_18Plus) + "人。有" + bigNumberTransform(i.Administered_Dose2_Recip) + "人全部打完（占总数" + i.Administered_Dose2_Pop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose2_Recip - WI_his.Administered_Dose2_Recip) + "人，" + "其中18岁以上有" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus) + "人";
             strRe.push(str);
             str = "";
-            str += "打完了第一针（占总18+人数" + i.Administered_Dose2_Recip_18PlusPop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus - WI_his.Administered_Dose2_Recip_18Plus) + "人。" + bigNumberTransform(i.Administered_Dose1_Recip - i.Administered_Dose2_Recip) + "人只打了第一针。总分发" + bigNumberTransform(i.Doses_Distributed) + await getDaneVaccineData();
+            str += "打完了第一针（占总18+人数" + i.Administered_Dose2_Recip_18PlusPop_Pct + "%），新增" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus - WI_his.Administered_Dose2_Recip_18Plus) + "人。" + bigNumberTransform(i.Administered_Dose1_Recip - i.Administered_Dose2_Recip) + "人只打了第一针。总分发" + bigNumberTransform(i.Doses_Distributed) + "。" + await getDaneVaccineData();
+            break;
         }
     }
     for (let i of toRe) {
         if (i.Location.localeCompare("WA") == 0) {
             str += "华盛顿州总共施打" + bigNumberTransform(i.Recip_Administered) + "针。新增" + bigNumberTransform(i.Recip_Administered - WA_his) + "针。";
+            break;
         }
     }
     for (let i of toRe) {
         if (i.Location.localeCompare("CA") == 0) {
             str += "加州总共施打" + bigNumberTransform(i.Recip_Administered) + "针。新增" + bigNumberTransform(i.Recip_Administered - CA_his) + "针。"
+            break;
         }
     }
     strRe.push(str);
@@ -407,7 +410,7 @@ async function getDane1101CaseData() {
         "POSITIVE": data.POSITIVE,
         "POP": data.POP
     };
-    return "第1101区阳性病例数" + data.POSITIVE + "（占总人口" + ((data.POSITIVE / data.POP) * 100).toFixed(2) + "%），较昨日新增" + (data.POSITIVE - history.Dane1101_Case.POSITIVE) + "例"
+    return "第1101区阳性病例数" + data.POSITIVE + "（占总人口" + ((data.POSITIVE / data.POP) * 100).toFixed(2) + "%），较昨日新增" + (data.POSITIVE - history.Dane1101_Case.POSITIVE) + "例。"
 }
 
 async function getDaneCaseData() {
@@ -577,6 +580,7 @@ async function main() {
         await sendErrorMessage("Error happened " + e);
         core.error("Error happened: " + e);
         core.setFailed("Quit because " + e);
+        process.exit(1);
     }
 
     // console.log(toSend);
