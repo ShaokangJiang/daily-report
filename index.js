@@ -543,7 +543,33 @@ async function writeToKV(message) {
         },
         method: "PUT"
     })
-    return await response.json();
+    return (await response.json()).success;
+}
+
+async function appendToKV() {
+    let d = new Date();
+    let dateStr = d.toLocaleDateString("en");
+    let intermValue = "data_" + dateStr;
+    core.info("Date get in appendKV:" + intermValue);
+    let response = await fetch("https://api.cloudflare.com/client/v4/accounts/" + CLOUDFLARE_ID + "/storage/kv/namespaces/" + KV_ID + "/values/data", {
+        headers: {
+            "X-Auth-Email": CLOUDFLARE_EMAIL,
+            "X-Auth-Key": CLOUDFLARE_API
+        }
+    })
+    let temp = JSON.parse(await response.text());
+    temp[intermValue] = toAppend;
+
+    response = await fetch("https://api.cloudflare.com/client/v4/accounts/" + CLOUDFLARE_ID + "/storage/kv/namespaces/" + KV_ID + "/values/data", {
+        body: JSON.stringify(temp),
+        headers: {
+            "Content-Type": "text/plain",
+            "X-Auth-Email": CLOUDFLARE_EMAIL,
+            "X-Auth-Key": CLOUDFLARE_API
+        },
+        method: "PUT"
+    })
+    return (await response.json()).success;
 }
 
 async function main() {
@@ -585,7 +611,8 @@ async function main() {
 
     // console.log(toSend);
     // console.log(toAppend);
-    core.info(await writeToKV(JSON.stringify(toAppend)));
+    core.info("Write next current date to KV: " + await writeToKV(JSON.stringify(toAppend)));
+    core.info("Append fast index to KV: " + await appendToKV());
     // core part end
 
     // console.log(await getDaneVaccineData());
