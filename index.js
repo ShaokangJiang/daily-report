@@ -144,8 +144,8 @@ async function sendMessage(message) {
                 }),
                 "method": "POST"
             });
-            await response.json();
-            await new Promise(r => setTimeout(r, 5000));
+            // await response.json();
+            await new Promise(r => setTimeout(r, 50000));
         }
     } else {
         response = await fetch("http://wxpusher.zjiecode.com/api/send/message", {
@@ -162,8 +162,8 @@ async function sendMessage(message) {
             }),
             "method": "POST"
         });
-        await response.json();
-        await new Promise(r => setTimeout(r, 5000));
+        // await response.json();
+        await new Promise(r => setTimeout(r, 50000));
     }
 }
 
