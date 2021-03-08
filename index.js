@@ -320,13 +320,13 @@ async function getVaccineData() {
     }
     for (let i of toRe) {
         if (i.Location.localeCompare("WA") == 0) {
-            str += "\n华盛顿州总共施打" + bigNumberTransform(i.Recip_Administered) + "针。新增" + bigNumberTransform(i.Recip_Administered - WA_his) + "针。";
+            str += "\n华盛顿州共施打" + bigNumberTransform(i.Recip_Administered) + "针。新增" + bigNumberTransform(i.Recip_Administered - WA_his) + "针。";
             break;
         }
     }
     for (let i of toRe) {
         if (i.Location.localeCompare("CA") == 0) {
-            str += "加州总共施打" + bigNumberTransform(i.Recip_Administered) + "针。新增" + bigNumberTransform(i.Recip_Administered - CA_his) + "针。"
+            str += "加州共施打" + bigNumberTransform(i.Recip_Administered) + "针。新增" + bigNumberTransform(i.Recip_Administered - CA_his) + "针。"
             break;
         }
     }
@@ -394,7 +394,7 @@ async function getDaneVaccineData() {
 
         toAppend["Dane_Vaccine"] = toRe;
         Dane_infection_vaccine = toRe["vaccine1_percent"];
-        return "\n戴恩县总共有" + bigNumberTransform(toRe["vaccine1"]) + "人打完了第一针（占总人数" + toRe["vaccine1_percent"] + "%），新增" + bigNumberTransform(toRe["vaccine1"] - history.Dane_Vaccine.vaccine1) + "人。" + bigNumberTransform(toRe["vaccine2"]) + "人全部打完（占总人数" + toRe["vaccine2_percent"] + "%），新增" + bigNumberTransform(toRe["vaccine2"] - history.Dane_Vaccine.vaccine2) + "人。" + bigNumberTransform(toRe["vaccine1"] - toRe["vaccine2"]) + "人只打了第一针。";
+        return "\n戴恩县共有" + bigNumberTransform(toRe["vaccine1"]) + "人打完第一针（占总数" + toRe["vaccine1_percent"] + "%），新增" + (toRe["vaccine1"] - history.Dane_Vaccine.vaccine1) + "人。" + bigNumberTransform(toRe["vaccine2"]) + "人全部打完（占总人数" + toRe["vaccine2_percent"] + "%），新增" + (toRe["vaccine2"] - history.Dane_Vaccine.vaccine2) + "人。" + bigNumberTransform(toRe["vaccine1"] - toRe["vaccine2"]) + "人只打了第一针。";
     } catch (e) {
         throw new Error("new error" + e);
     } finally {
