@@ -432,7 +432,7 @@ async function getDaneVaccineData() {
 
         toAppend["Dane_Vaccine"] = toRe;
         Dane_infection_vaccine = toRe["vaccine1_percent"];
-        return "\n戴恩县第一针：" + bigNumberTransform(toRe["vaccine1"]) + "人（" + toRe["vaccine1_percent"] + "%，+" + (toRe["vaccine1"] - history.Dane_Vaccine.vaccine1) + "人）\n第二针" + bigNumberTransform(toRe["vaccine2"]) + "人（" + toRe["vaccine2_percent"] + "%，+" + (toRe["vaccine2"] - history.Dane_Vaccine.vaccine2) + "人）" + bigNumberTransform(toRe["vaccine1"] - toRe["vaccine2"]) + "人只打了第一针。";
+        return "戴恩县\n第一针：" + bigNumberTransform(toRe["vaccine1"]) + "人（" + toRe["vaccine1_percent"] + "%，+" + (toRe["vaccine1"] - history.Dane_Vaccine.vaccine1) + "人）\n第二针" + bigNumberTransform(toRe["vaccine2"]) + "人（" + toRe["vaccine2_percent"] + "%，+" + (toRe["vaccine2"] - history.Dane_Vaccine.vaccine2) + "人）" + bigNumberTransform(toRe["vaccine1"] - toRe["vaccine2"]) + "人只打了第一针。";
     } catch (e) {
         throw new Error("new error" + e);
     } finally {
