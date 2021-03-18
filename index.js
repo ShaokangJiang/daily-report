@@ -298,6 +298,10 @@ async function getSchoolData() { //finished testing.// TODO: Write to local cont
 }
 
 async function getVaccineData() {
+
+    let Students = 45540;
+    let nothere = 15000;
+    let Employees = 19225;
     let data = await (await fetch("https://covid.cdc.gov/covid-data-tracker/COVIDData/getAjaxData?id=vaccination_data")).json();
     let toRe = [];
 
@@ -332,7 +336,7 @@ async function getVaccineData() {
     for (let i of toRe) {
         if (i.Location.localeCompare("US") == 0) {
             US_infection_vaccine = i.Administered_Dose1_Pop_Pct + ((i.Series_Complete_Janssen / i.Census2019) * 100);
-            str += "美国总完成" + i.Series_Complete_Pop_Pct + "%\n第一针：" + bigNumberTransform(i.Administered_Dose1_Recip) + "人（" + i.Administered_Dose1_Pop_Pct + "%，+" + bigNumberTransform(i.Administered_Dose1_Recip - US_his.Administered_Dose1_Recip) + "人），含18+第一针" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus) + "人（" + bigNumberTransform(i.Administered_Dose1_Recip_18PlusPop_Pct) + "%，+" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus - US_his.Administered_Dose1_Recip_18Plus) + "人）\n第二针：" + bigNumberTransform(i.Administered_Dose2_Recip) + "人（" + i.Administered_Dose2_Pop_Pct + "%，+" + bigNumberTransform(i.Administered_Dose2_Recip - US_his.Administered_Dose2_Recip) + "人），含18+第二针" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus) + "人（" + i.Administered_Dose2_Recip_18PlusPop_Pct + "%，+" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus - US_his.Administered_Dose2_Recip_18Plus) + "人）\n" + bigNumberTransform(i.Administered_Dose1_Recip - i.Administered_Dose2_Recip) + "人只打了第一针\n总分发：" + bigNumberTransform(i.Doses_Distributed) + "\n强生：" + bigNumberTransform(i.Series_Complete_Janssen);
+            str += "美国总完成" + i.Series_Complete_Pop_Pct + "%\n第一针：" + bigNumberTransform(i.Administered_Dose1_Recip) + "人（" + i.Administered_Dose1_Pop_Pct + "%，+" + bigNumberTransform(i.Administered_Dose1_Recip - US_his.Administered_Dose1_Recip) + "人），含18+第一针" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus) + "人（" + bigNumberTransform(i.Administered_Dose1_Recip_18PlusPop_Pct) + "%，+" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus - US_his.Administered_Dose1_Recip_18Plus) + "人）\n第二针：" + bigNumberTransform(i.Administered_Dose2_Recip) + "人（" + i.Administered_Dose2_Pop_Pct + "%，+" + bigNumberTransform(i.Administered_Dose2_Recip - US_his.Administered_Dose2_Recip) + "人），含18+第二针" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus) + "人（" + i.Administered_Dose2_Recip_18PlusPop_Pct + "%，+" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus - US_his.Administered_Dose2_Recip_18Plus) + "人）\n" + bigNumberTransform(i.Administered_Dose1_Recip - i.Administered_Dose2_Recip) + "人只打了第一针\n总分发：" + bigNumberTransform(i.Doses_Distributed) + "（+" + bigNumberTransform(i.Doses_Distributed - US_his.Doses_Distributed) + "）" + "\n强生：" + bigNumberTransform(i.Series_Complete_Janssen) + "（" + ((i.Series_Complete_Janssen / i.Census2019) * 100).toFixed(2) + "%，+" + bigNumberTransform(i.Series_Complete_Janssen - US_his.Series_Complete_Janssen) + "）";
         }
     }
     let strRe = [];
@@ -343,12 +347,12 @@ async function getVaccineData() {
         if (i.Location.localeCompare("WI") == 0) {
             WI_infection_vaccine = i.Administered_Dose1_Pop_Pct + ((i.Series_Complete_Janssen / i.Census2019) * 100);
 
-            str += "WI总完成" + i.Series_Complete_Pop_Pct + "%\n第一针：" + bigNumberTransform(i.Administered_Dose1_Recip) + "人（" + i.Administered_Dose1_Pop_Pct + "%，+" + bigNumberTransform(i.Administered_Dose1_Recip - WI_his.Administered_Dose1_Recip) + "人），含18+第一针" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus) + "人（" + bigNumberTransform(i.Administered_Dose1_Recip_18PlusPop_Pct) + "%，+" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus - WI_his.Administered_Dose1_Recip_18Plus) + "人）\n第二针：" + bigNumberTransform(i.Administered_Dose2_Recip) + "人（" + i.Administered_Dose2_Pop_Pct + "%，+" + bigNumberTransform(i.Administered_Dose2_Recip - WI_his.Administered_Dose2_Recip) + "人），含18+第二针" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus) + "人（" + i.Administered_Dose2_Recip_18PlusPop_Pct + "%，+" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus - WI_his.Administered_Dose2_Recip_18Plus) + "人）\n" + bigNumberTransform(i.Administered_Dose1_Recip - i.Administered_Dose2_Recip) + "人只打了第一针\n总分发：" + bigNumberTransform(i.Doses_Distributed) + "\n强生：" + bigNumberTransform(i.Series_Complete_Janssen);
+            str += "WI总完成" + i.Series_Complete_Pop_Pct + "%\n第一针：" + bigNumberTransform(i.Administered_Dose1_Recip) + "人（" + i.Administered_Dose1_Pop_Pct + "%，+" + bigNumberTransform(i.Administered_Dose1_Recip - WI_his.Administered_Dose1_Recip) + "人），含18+第一针" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus) + "人（" + bigNumberTransform(i.Administered_Dose1_Recip_18PlusPop_Pct) + "%，+" + bigNumberTransform(i.Administered_Dose1_Recip_18Plus - WI_his.Administered_Dose1_Recip_18Plus) + "人）\n第二针：" + bigNumberTransform(i.Administered_Dose2_Recip) + "人（" + i.Administered_Dose2_Pop_Pct + "%，+" + bigNumberTransform(i.Administered_Dose2_Recip - WI_his.Administered_Dose2_Recip) + "人），含18+第二针" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus) + "人（" + i.Administered_Dose2_Recip_18PlusPop_Pct + "%，+" + bigNumberTransform(i.Administered_Dose2_Recip_18Plus - WI_his.Administered_Dose2_Recip_18Plus) + "人）\n" + bigNumberTransform(i.Administered_Dose1_Recip - i.Administered_Dose2_Recip) + "人只打了第一针\n总分发：" + bigNumberTransform(i.Doses_Distributed) + "（+" + bigNumberTransform(i.Doses_Distributed - WI_his.Doses_Distributed) + "）" + "\n强生：" + bigNumberTransform(i.Series_Complete_Janssen) + "（" + ((i.Series_Complete_Janssen / i.Census2019) * 100).toFixed(2) + "%，+" + bigNumberTransform(i.Series_Complete_Janssen - WI_his.Series_Complete_Janssen) + "）";
 
             strRe.push(str);
             str = "";
             str += await getDaneVaccineData();
-            str += "\n学校打了" + toAppend.School_Data.Vaccine_Total + "人（+" + (toAppend.School_Data.Vaccine_Total - history.School_Data.Vaccine_Total) + "），校医院打了" + toAppend.School_Data.Vaccine_School + "针（+" + (toAppend.School_Data.Vaccine_School - history.School_Data.Vaccine_School) + "）";
+            str += "\n学校打了" + toAppend.School_Data.Vaccine_Total + "人（"+((toAppend.School_Data.Vaccine_Total/(Students + Employees - nothere))*100).toFixed(2) +"%，+" + (toAppend.School_Data.Vaccine_Total - history.School_Data.Vaccine_Total) + "），校医院打了" + toAppend.School_Data.Vaccine_School + "针（+" + (toAppend.School_Data.Vaccine_School - history.School_Data.Vaccine_School) + "）";
             break;
         }
     }
@@ -428,7 +432,7 @@ async function getDaneVaccineData() {
 
         toAppend["Dane_Vaccine"] = toRe;
         Dane_infection_vaccine = toRe["vaccine1_percent"];
-        return "戴恩县第一针：" + bigNumberTransform(toRe["vaccine1"]) + "人（" + toRe["vaccine1_percent"] + "%，+" + (toRe["vaccine1"] - history.Dane_Vaccine.vaccine1) + "人）\n第二针" + bigNumberTransform(toRe["vaccine2"]) + "人（" + toRe["vaccine2_percent"] + "%，+" + (toRe["vaccine2"] - history.Dane_Vaccine.vaccine2) + "人）" + bigNumberTransform(toRe["vaccine1"] - toRe["vaccine2"]) + "人只打了第一针。";
+        return "\n戴恩县第一针：" + bigNumberTransform(toRe["vaccine1"]) + "人（" + toRe["vaccine1_percent"] + "%，+" + (toRe["vaccine1"] - history.Dane_Vaccine.vaccine1) + "人）\n第二针" + bigNumberTransform(toRe["vaccine2"]) + "人（" + toRe["vaccine2_percent"] + "%，+" + (toRe["vaccine2"] - history.Dane_Vaccine.vaccine2) + "人）" + bigNumberTransform(toRe["vaccine1"] - toRe["vaccine2"]) + "人只打了第一针。";
     } catch (e) {
         throw new Error("new error" + e);
     } finally {
