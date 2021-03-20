@@ -26,6 +26,7 @@ var School_infection_vaccine;
 
 var toAppend = {};
 var history = {};
+var url = undefined;
 
 if (APP_TOKEN.localeCompare("") == 0 || CLOUDFLARE_EMAIL.localeCompare("") == 0 || CLOUDFLARE_API.localeCompare("") == 0 || CLOUDFLARE_ID.localeCompare("") == 0 || KV_ID.localeCompare("") == 0 || COVID_ACT_KEY.localeCompare("") == 0) {
     core.setFailed(`Action failed because of empty required secrets.`);
@@ -142,7 +143,7 @@ async function sendMessage(message) {
                     "content": i,
                     "contentType": 1,//内容类型 1表示文字  2表示html(只发送body标签内部的数据即可，不包括body标签) 3表示markdown 
                     "uids": uids,
-                    "url": undefined //原文链接，可选参数
+                    "url": url //原文链接，可选参数
                 }),
                 "method": "POST"
             });
@@ -160,7 +161,7 @@ async function sendMessage(message) {
                 "content": message,
                 "contentType": 1,//内容类型 1表示文字  2表示html(只发送body标签内部的数据即可，不包括body标签) 3表示markdown 
                 "uids": uids,
-                "url": undefined //原文链接，可选参数
+                "url": url //原文链接，可选参数
             }),
             "method": "POST"
         });
@@ -189,7 +190,7 @@ async function sendErrorMessage(message) {
             "content": message,
             "contentType": 1,//内容类型 1表示文字  2表示html(只发送body标签内部的数据即可，不包括body标签) 3表示markdown 
             "uids": uids,
-            "url": undefined //原文链接，可选参数
+            "url": url //原文链接，可选参数
         }),
         "method": "POST"
     });
@@ -638,6 +639,7 @@ async function main() {
 
         core.info("Start to get mix data");
         hrStart = process.hrtime();
+        url = "https://covid.shaokang.ga/" + (new Date()).toLocaleDateString("en");
         await sendMessage("➡️综合：" + await getRData() + await getConclusion());
         hrEnd = process.hrtime(hrStart)
         core.info("mix data got in " + hrEnd[0] + "s");
