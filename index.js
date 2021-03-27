@@ -133,7 +133,12 @@ async function sendMessage(message) {
     let response;
     if (Array.isArray(message)) {
         try {
+            let k = 0;
             for (let i of message) {
+                k++;
+                if (k == message.length) {
+                    url = "https://covid.shaokang.ga/" + (new Date()).toLocaleDateString("en");
+                }
                 response = await fetch("http://wxpusher.zjiecode.com/api/send/message", {
                     "headers": {
                         "accept": "*/*",
@@ -155,6 +160,7 @@ async function sendMessage(message) {
             core.error("Error happened: " + e);
             core.info("Try to resend as a whole");
             await new Promise(r => setTimeout(r, 120000));
+            url = "https://covid.shaokang.ga/" + (new Date()).toLocaleDateString("en");
             response = await fetch("http://wxpusher.zjiecode.com/api/send/message", {
                 "headers": {
                     "accept": "*/*",
@@ -659,7 +665,6 @@ async function main() {
 
         core.info("Start to get mix data");
         hrStart = process.hrtime();
-        url = "https://covid.shaokang.ga/" + (new Date()).toLocaleDateString("en");
         result = result.concat("➡️综合：" + await getRData() + await getConclusion());
         hrEnd = process.hrtime(hrStart)
         core.info("mix data got in " + hrEnd[0] + "s");
