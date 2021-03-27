@@ -132,7 +132,29 @@ async function sendMessage(message) {
     }
     let response;
     if (Array.isArray(message)) {
-        for (let i of message) {
+        try {
+            for (let i of message) {
+                response = await fetch("http://wxpusher.zjiecode.com/api/send/message", {
+                    "headers": {
+                        "accept": "*/*",
+                        "content-type": "application/json"
+                    },
+                    "body": JSON.stringify({
+                        "appToken": APP_TOKEN,
+                        "content": i,
+                        "contentType": 1,//内容类型 1表示文字  2表示html(只发送body标签内部的数据即可，不包括body标签) 3表示markdown 
+                        "uids": uids,
+                        "url": url //原文链接，可选参数
+                    }),
+                    "method": "POST"
+                });
+                // await response.json();
+                await new Promise(r => setTimeout(r, 120000));
+            }
+        } catch (e) {
+            core.error("Error happened: " + e);
+            core.info("Try to resend as a whole");
+            await new Promise(r => setTimeout(r, 120000));
             response = await fetch("http://wxpusher.zjiecode.com/api/send/message", {
                 "headers": {
                     "accept": "*/*",
@@ -140,15 +162,13 @@ async function sendMessage(message) {
                 },
                 "body": JSON.stringify({
                     "appToken": APP_TOKEN,
-                    "content": i,
+                    "content": message.join("\n\n"),
                     "contentType": 1,//内容类型 1表示文字  2表示html(只发送body标签内部的数据即可，不包括body标签) 3表示markdown 
                     "uids": uids,
                     "url": url //原文链接，可选参数
                 }),
                 "method": "POST"
             });
-            // await response.json();
-            await new Promise(r => setTimeout(r, 120000));
         }
     } else {
         response = await fetch("http://wxpusher.zjiecode.com/api/send/message", {
@@ -353,7 +373,7 @@ async function getVaccineData() {
             strRe.push(str);
             str = "";
             str += await getDaneVaccineData();
-            str += "\n学校打了" + toAppend.School_Data.Vaccine_Total + "人（"+((toAppend.School_Data.Vaccine_Total/(Students + Employees - nothere))*100).toFixed(2) +"%，+" + (toAppend.School_Data.Vaccine_Total - history.School_Data.Vaccine_Total) + "），校医院打了" + toAppend.School_Data.Vaccine_School + "针（+" + (toAppend.School_Data.Vaccine_School - history.School_Data.Vaccine_School) + "）";
+            str += "\n学校打了" + toAppend.School_Data.Vaccine_Total + "人（" + ((toAppend.School_Data.Vaccine_Total / (Students + Employees - nothere)) * 100).toFixed(2) + "%，+" + (toAppend.School_Data.Vaccine_Total - history.School_Data.Vaccine_Total) + "），校医院打了" + toAppend.School_Data.Vaccine_School + "针（+" + (toAppend.School_Data.Vaccine_School - history.School_Data.Vaccine_School) + "）";
             break;
         }
     }
@@ -620,29 +640,32 @@ async function main() {
         await loadUID();
         await loadKVData();
         core.info("Start to get infection");
+        let result = [];
         let hrStart = process.hrtime();
-        await sendMessage("疫情简报：\n" + getTime() + "➡️感染：" + await getCasesData());
+        result = result.concat("疫情简报：\n" + getTime() + "➡️感染：" + await getCasesData())
         let hrEnd = process.hrtime(hrStart);
         core.info("Infection got in " + hrEnd[0] + "s");
-
         core.info("Start to get school data");
         hrStart = process.hrtime();
-        await sendMessage(await getSchoolData());
+        result = result.concat(await getSchoolData());
         hrEnd = process.hrtime(hrStart)
         core.info("School data got in " + hrEnd[0] + "s");
 
         core.info("Start to get vaccine data");
         hrStart = process.hrtime();
-        await sendMessage(await getVaccineData());
+        result = result.concat(await getVaccineData());
         hrEnd = process.hrtime(hrStart)
         core.info("vaccine data got in " + hrEnd[0] + "s");
 
         core.info("Start to get mix data");
         hrStart = process.hrtime();
         url = "https://covid.shaokang.ga/" + (new Date()).toLocaleDateString("en");
-        await sendMessage("➡️综合：" + await getRData() + await getConclusion());
+        result = result.concat("➡️综合：" + await getRData() + await getConclusion());
         hrEnd = process.hrtime(hrStart)
         core.info("mix data got in " + hrEnd[0] + "s");
+        core.info("Write next current date to KV: " + await writeToKV(JSON.stringify(toAppend)));
+        core.info("Append fast index to KV: " + await appendToKV());
+        await sendMessage(result);
     } catch (e) {
         await sendErrorMessage("Error happened " + e);
         core.error("Error happened: " + e);
@@ -652,8 +675,6 @@ async function main() {
 
     // console.log(toSend);
     // console.log(toAppend);
-    core.info("Write next current date to KV: " + await writeToKV(JSON.stringify(toAppend)));
-    core.info("Append fast index to KV: " + await appendToKV());
     // core part end
 
 
