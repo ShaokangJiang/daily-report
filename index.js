@@ -403,7 +403,7 @@ async function getDaneVaccineData() {
 
     let browser;
     try {
-        browser = await puppeteer.launch({ headless: true });
+        browser = await puppeteer.launch({ headless: false });
         const page = await browser.newPage();
         await page.setViewport({ width: 1920, height: 1080 });
         await page.goto("https://bi.wisconsin.gov/t/DHS/views/VaccinesAdministeredtoWIResidents_16129838459350/VaccinatedWisconsin-County?%3Aembed=y&%3AshowVizHome=no&%3Ahost_url=https%3A%2F%2Fbi.wisconsin.gov%2F&%3Aembed_code_version=3&%3Atabs=no&%3Atoolbar=yes&%3AshowAppBanner=false&%3Adisplay_spinner=no&%3AloadOrderID=1&%3AdeepLinkingDisabled=y", { waitUntil: "networkidle0", timeout: 200000 });
@@ -411,7 +411,8 @@ async function getDaneVaccineData() {
         // const elem = await page.$("canvas");
         // console.log(JSON.stringify(elem, 2));
         // await clickOnElement(elem, 400);
-        await page.mouse.click(732, 625);
+        // await page.waitForTimeout(2000000000);
+        await page.mouse.click(732, 619);
         await page.waitForSelector(".tab-tooltipContent", { timeout: 200000 });
 
         let valueBlock = await page.evaluate(() => {
@@ -671,6 +672,7 @@ async function main() {
         core.info("Write next current date to KV: " + await writeToKV(JSON.stringify(toAppend)));
         core.info("Append fast index to KV: " + await appendToKV());
         await sendMessage(result);
+        // console.log(await getDaneVaccineData());
     } catch (e) {
         await sendErrorMessage("Error happened " + e);
         core.error("Error happened: " + e);
